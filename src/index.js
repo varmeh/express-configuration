@@ -1,7 +1,10 @@
 const app = require('express')()
+const createLogger = require('./logger')
+
+const logger = createLogger('main-app')
 
 app.use((req, _, next) => {
-	console.log(`${req.ip} - ${req.method} - ${req.url} - ${req.host}`)
+	logger.info(`${req.ip} - ${req.method} - ${req.url} - ${req.hostname}`)
 	next()
 })
 
@@ -16,7 +19,8 @@ app.get('/users', (_, res) =>
 )
 
 // Configure for routes that does not exist
-app.use((_, res) => {
+app.use((req, res) => {
+	logger.error(`${req.ip} - ${req.method} - ${req.url} - ${req.hostname}`)
 	res
 		.status(404)
 		.json({ error: true, message: 'Could not find the route', route: res.url })
