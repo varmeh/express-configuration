@@ -5,7 +5,7 @@ const createLogger = require('./winston-logger')
 const app = express()
 
 // Logging Configuration
-const winston = createLogger('main-app')
+const winston = createLogger('test-queue')
 app.use(
 	morgan(
 		':remote-addr - :remote-user ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"',

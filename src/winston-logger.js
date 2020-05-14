@@ -1,43 +1,76 @@
+const os = require('os')
 const { createLogger, format, transports, config } = require('winston')
 const { combine, timestamp, json, colorize, printf } = format
 const DailyRotateFile = require('winston-daily-rotate-file')
 
-const logFormat = printf(({ level, message, timestamp, service, env }) => {
-	return `${level} - ${timestamp} - ${service} - ${env} - ${message}`
+const logFormat = printf(
+	({ level, message, host, timestamp, service, env }) => {
+		return `${level} - ${timestamp} - ${host} - ${service} - ${env} - ${message}`
+	}
+)
+
+const consoleFormat = printf(({ level, timestamp, message }) => {
+	return `${level} - ${timestamp} - ${message}`
 })
 
 const timestampFormat = timestamp({
 	format: 'MM-DD-YYYY HH:mm:ss'
 })
 
-module.exports = (service, env = 'Prod') => {
+const consoleTransportOptions = {
+	level: 'debug',
+	format: combine(colorize(), timestampFormat, consoleFormat)
+}
+
+const fileTransportOptions = {
+	level: 'debug',
+	filename: 'combined-%DATE%.log',
+	datePattern: 'YYYY-MM-DD',
+	dirname: 'logs',
+	zippedArchive: true,
+	maxSize: '100m',
+	maxFiles: '15d',
+	format: combine(timestampFormat, logFormat)
+}
+
+const httpTransportOptions = service => ({
+	level: 'info',
+	host: 'http-intake.logs.datadoghq.com',
+	path: `/v1/input/${process.env.DD_API_KEY}?ddsource=nodejs&service=${service}`,
+	ssl: true,
+	format: combine(timestampFormat, logFormat, json())
+})
+
+const logger = (service, isDdogLogging = true, env = 'prod') => {
+	if (!service) {
+		throw new Error('Missing Mandatory Parameter - service')
+	}
+
 	const logger = createLogger({
 		exitOnError: false,
 		defaultMeta: {
 			env,
-			service
+			service,
+			host: os.hostname()
 		},
 		transports: [
-			new transports.Console({
-				level: 'debug',
-				format: combine(colorize(), timestampFormat, logFormat)
-			}),
-			new DailyRotateFile({
-				level: 'debug',
-				filename: 'combined-%DATE%.log',
-				datePattern: 'YYYY-MM-DD',
-				dirname: 'logs',
-				zippedArchive: true,
-				maxSize: '100m',
-				maxFiles: '15d',
-				format: combine(timestampFormat, logFormat)
-			})
+			new transports.Console(consoleTransportOptions),
+			new DailyRotateFile(fileTransportOptions)
 		]
 	})
 
+	if (isDdogLogging) {
+		if (!process.env.DD_API_KEY) {
+			throw new Error(
+				'DD_API_KEY missing. Set this variable to your Datadog Agent API Key'
+			)
+		}
+		logger.add(new transports.Http(httpTransportOptions(service)))
+	}
+
 	// create a stream object with a 'write' function that will be used by `morgan`
 	logger.stream = {
-		write: function (message, encoding) {
+		write: function (message) {
 			// use the 'info' log level so the output will be picked up by both transports (file and console)
 			logger.info(message)
 		}
@@ -45,3 +78,5 @@ module.exports = (service, env = 'Prod') => {
 
 	return logger
 }
+
+module.exports = logger
