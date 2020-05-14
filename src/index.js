@@ -6,7 +6,12 @@ const app = express()
 
 // Logging Configuration
 const winston = createLogger('main-app')
-app.use(morgan('combined', { stream: winston.stream }))
+app.use(
+	morgan(
+		':remote-addr - :remote-user ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"',
+		{ stream: winston.stream }
+	)
+)
 
 app.get('/', (_, res) =>
 	res.json({ page: 'Home', message: 'Welcome to home page' })

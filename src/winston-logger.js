@@ -1,16 +1,18 @@
 const { createLogger, format, transports, config } = require('winston')
-const { combine, timestamp, json, colorize, simple } = format
+const { combine, timestamp, json, colorize, printf } = format
 const DailyRotateFile = require('winston-daily-rotate-file')
+
+const logFormat = printf(({ level, message, timestamp, service, env }) => {
+	return `${level} - ${timestamp} - ${service} - ${env} - ${message}`
+})
+
+const timestampFormat = timestamp({
+	format: 'MM-DD-YYYY HH:mm:ss'
+})
 
 module.exports = (service, env = 'Prod') => {
 	const logger = createLogger({
 		exitOnError: false,
-		format: combine(
-			timestamp({
-				format: 'MM-DD-YYYY HH:mm:ss'
-			}),
-			json()
-		),
 		defaultMeta: {
 			env,
 			service
@@ -18,7 +20,7 @@ module.exports = (service, env = 'Prod') => {
 		transports: [
 			new transports.Console({
 				level: 'debug',
-				format: combine(colorize(), simple())
+				format: combine(colorize(), timestampFormat, logFormat)
 			}),
 			new DailyRotateFile({
 				level: 'debug',
@@ -27,7 +29,8 @@ module.exports = (service, env = 'Prod') => {
 				dirname: 'logs',
 				zippedArchive: true,
 				maxSize: '100m',
-				maxFiles: '15d'
+				maxFiles: '15d',
+				format: combine(timestampFormat, logFormat)
 			})
 		]
 	})
