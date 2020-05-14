@@ -4,14 +4,17 @@
 	"description": "Express app prod configuration",
 	"main": "index.js",
 	"scripts": {
-		"start": "nodemon src/index.js"
+		"start": "nodemon src/index.js",
+		"eslint": "./node_modules/eslint/bin/eslint.js ."
 	},
 	"keywords": [
 		"javascript",
 		"es6",
 		"express",
 		"nodejs",
-		"winston"
+		"winston",
+		"datadog",
+		"datadog-logs"
 	],
 	"author": "varun",
 	"license": "MIT",
@@ -23,6 +26,10 @@
 		"winston-daily-rotate-file": "^4.4.2"
 	},
 	"devDependencies": {
+		"eslint": "^7.0.0",
+		"eslint-config-airbnb-base": "^14.1.0",
+		"eslint-config-prettier": "^6.11.0",
+		"eslint-plugin-import": "^2.20.2",
 		"nodemon": "^2.0.3"
 	}
 }

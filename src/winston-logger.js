@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 const os = require('os')
 const { createLogger, format, transports } = require('winston')
 const DailyRotateFile = require('winston-daily-rotate-file')
@@ -44,7 +45,7 @@ const httpTransportOptions = service => ({
 	format: combine(timestampFormat, logFormat, json())
 })
 
-const logger = (service, isDdogLogging = true, env = 'prod') => {
+const winston = (service, isDdogLogging = true, env = 'prod') => {
 	if (!service) {
 		throw new Error('Missing Mandatory Parameter - service')
 	}
@@ -73,7 +74,7 @@ const logger = (service, isDdogLogging = true, env = 'prod') => {
 
 	// create a stream object with a 'write' function that will be used by `morgan`
 	logger.stream = {
-		write: function (message) {
+		write: message => {
 			// use the 'info' log level so the output will be picked up by both transports (file and console)
 			logger.info(message)
 		}
@@ -82,4 +83,4 @@ const logger = (service, isDdogLogging = true, env = 'prod') => {
 	return logger
 }
 
-module.exports = logger
+module.exports = winston
