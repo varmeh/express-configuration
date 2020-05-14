@@ -1,7 +1,7 @@
 {
-	"name": "winston-configuration",
+	"name": "express-configuration",
 	"version": "0.1.0",
-	"description": "Express app with winston configuration",
+	"description": "Express app prod configuration",
 	"main": "index.js",
 	"scripts": {
 		"start": "nodemon src/index.js"
