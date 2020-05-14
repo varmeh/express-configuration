@@ -3,6 +3,8 @@ const { createLogger, format, transports, config } = require('winston')
 const { combine, timestamp, json, colorize, printf } = format
 const DailyRotateFile = require('winston-daily-rotate-file')
 
+require('dotenv').config()
+
 const logFormat = printf(
 	({ level, message, host, timestamp, service, env }) => {
 		return `${level} - ${timestamp} - ${host} - ${service} - ${env} - ${message}`
