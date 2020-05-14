@@ -1,16 +1,17 @@
-const app = require('express')()
-const createLogger = require('./logger')
+const express = require('express')
+const morgan = require('morgan')
+const createLogger = require('./winston-logger')
 
-const logger = createLogger('main-app')
+const app = express()
 
-app.use((req, _, next) => {
-	logger.info(`${req.ip} - ${req.method} - ${req.url} - ${req.hostname}`)
-	next()
-})
+// Logging Configuration
+const winston = createLogger('main-app')
+app.use(morgan('combined', { stream: winston.stream }))
 
 app.get('/', (_, res) =>
 	res.json({ page: 'Home', message: 'Welcome to home page' })
 )
+
 app.get('/users', (_, res) =>
 	res.json({
 		page: 'User',
@@ -20,7 +21,7 @@ app.get('/users', (_, res) =>
 
 // Configure for routes that does not exist
 app.use((req, res) => {
-	logger.error(`${req.ip} - ${req.method} - ${req.url} - ${req.hostname}`)
+	winston.error(`${req.ip} - ${req.method} - ${req.url} - ${req.hostname}`)
 	res
 		.status(404)
 		.json({ error: true, message: 'Could not find the route', route: res.url })
