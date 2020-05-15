@@ -26,16 +26,16 @@ const consoleTransportOptions = {
 	format: combine(colorize(), timestampFormat, consoleFormat)
 }
 
-const fileTransportOptions = {
+const fileTransportOptions = (service, logfolder) => ({
 	level: 'debug',
-	filename: 'combined-%DATE%.log',
+	filename: `${service}-%DATE%.log`,
 	datePattern: 'YYYY-MM-DD',
-	dirname: 'logs',
+	dirname: logfolder,
 	zippedArchive: true,
 	maxSize: '100m',
 	maxFiles: '15d',
 	format: combine(timestampFormat, logFormat)
-}
+})
 
 const httpTransportOptions = service => ({
 	level: 'info',
@@ -45,7 +45,11 @@ const httpTransportOptions = service => ({
 	format: combine(timestampFormat, logFormat, json())
 })
 
-const winston = (service, isDdogLogging = true, env = 'prod') => {
+const winston = (
+	service,
+	{ isDdogLogging = true, env = 'prod', logfolder = 'logs' } = {}
+) => {
+	console.log(isDdogLogging, env, logfolder)
 	if (!service) {
 		throw new Error('Missing Mandatory Parameter - service')
 	}
@@ -59,7 +63,7 @@ const winston = (service, isDdogLogging = true, env = 'prod') => {
 		},
 		transports: [
 			new transports.Console(consoleTransportOptions),
-			new DailyRotateFile(fileTransportOptions)
+			new DailyRotateFile(fileTransportOptions(service, logfolder))
 		]
 	})
 
