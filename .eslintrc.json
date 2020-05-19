@@ -5,7 +5,7 @@
 		"es6": true,
 		"jest": true
 	},
-	"extends": ["airbnb-base", "prettier"],
+	"extends": ["eslint:recommended", "airbnb-base", "prettier"],
 	"globals": {
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
@@ -20,6 +20,7 @@
 		"quotes": ["error", "single"],
 		"semi": 0,
 		"space-before-function-paren": "off",
+		"no-unused-vars": ["error", { "vars": "all", "args": "after-used" }],
 		"comma-dangle": ["error", "never"]
 	}
 }
