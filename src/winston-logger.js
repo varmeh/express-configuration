@@ -47,7 +47,7 @@ const httpTransportOptions = service => ({
 
 const winston = (
 	service,
-	{ isDdogLogging = true, env = 'prod', logfolder = 'logs' } = {}
+	{ isDdogLogging = false, env = 'prod', logfolder = 'logs' } = {}
 ) => {
 	console.log(isDdogLogging, env, logfolder)
 	if (!service) {
