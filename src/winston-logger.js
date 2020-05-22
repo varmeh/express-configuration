@@ -1,9 +1,10 @@
 /* eslint-disable no-shadow */
-const os = require('os')
-const { createLogger, format, transports } = require('winston')
-const DailyRotateFile = require('winston-daily-rotate-file')
+import os from 'os'
+import { createLogger, format, transports } from 'winston'
+import DailyRotateFile from 'winston-daily-rotate-file'
+import dotenv from 'dotenv'
 
-require('dotenv').config()
+dotenv.config()
 
 const { combine, timestamp, json, colorize, printf } = format
 
@@ -47,9 +48,12 @@ const httpTransportOptions = service => ({
 
 const winston = (
 	service,
-	{ isDdogLogging = false, env = 'prod', logfolder = 'logs' } = {}
+	{
+		isDdogLogging = false,
+		env = process.env.NODE || 'development',
+		logfolder = 'logs'
+	} = {}
 ) => {
-	console.log(isDdogLogging, env, logfolder)
 	if (!service) {
 		throw new Error('Missing Mandatory Parameter - service')
 	}
@@ -87,4 +91,4 @@ const winston = (
 	return logger
 }
 
-module.exports = winston
+export default winston

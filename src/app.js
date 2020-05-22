@@ -1,6 +1,6 @@
-const express = require('express')
-const morgan = require('morgan')
-const createLogger = require('./winston-logger')
+import express from 'express'
+import morgan from 'morgan'
+import createLogger from './winston-logger'
 
 const app = express()
 
