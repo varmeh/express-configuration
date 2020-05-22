@@ -24,6 +24,8 @@ Add these files to your react project to code styling & linting benefits.
 
 -   `.prettierrc.json` - prettier extension configuration
 -   `.eslintrc.json` - eslint extension configuration
+-   `.babelrc` - babel configuration for es6 modules
+-   `jest.config.js` - jest configuration
 -   `.vscode`
     -   `extension.json` - recommends user to download usefult extensions
     -   `settings.json` - vscode file to enforce prettier as default formatter
