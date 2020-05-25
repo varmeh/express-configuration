@@ -3,20 +3,20 @@ import os from 'os'
 import { createLogger, format, transports } from 'winston'
 import DailyRotateFile from 'winston-daily-rotate-file'
 import dotenv from 'dotenv'
+import { name as serviceName } from '../package.json'
 
 dotenv.config()
-
 const { combine, timestamp, json, colorize, printf } = format
 
 const logFormat = printf(
-	({ level, message, host, timestamp, service, env }) => {
-		return `${level} - ${timestamp} - ${host} - ${service} - ${env} - ${message}`
-	}
+	({ level, timestamp, host, message }) =>
+		`${level} - ${timestamp} - ${host} - ${JSON.stringify(message, null, 4)}`
 )
 
-const consoleFormat = printf(({ level, timestamp, message }) => {
-	return `${level} - ${timestamp} - ${message}`
-})
+const consoleFormat = printf(
+	({ level, timestamp, message }) =>
+		`${level} - ${timestamp} - ${JSON.stringify(message, null, 2)}`
+)
 
 const timestampFormat = timestamp({
 	format: 'MM-DD-YYYY HH:mm:ss'
@@ -27,11 +27,11 @@ const consoleTransportOptions = {
 	format: combine(colorize(), timestampFormat, consoleFormat)
 }
 
-const fileTransportOptions = (service, logfolder) => ({
+const fileTransportOptions = (service, logsfolder) => ({
 	level: 'debug',
 	filename: `${service}-%DATE%.log`,
 	datePattern: 'YYYY-MM-DD',
-	dirname: logfolder,
+	dirname: logsfolder,
 	zippedArchive: true,
 	maxSize: '100m',
 	maxFiles: '15d',
@@ -46,12 +46,12 @@ const httpTransportOptions = service => ({
 	format: combine(timestampFormat, logFormat, json())
 })
 
-const winston = (
+export const createWinstonLogger = (
 	service,
 	{
-		isDdogLogging = false,
-		env = process.env.NODE || 'development',
-		logfolder = 'logs'
+		env = process.env.NODE_ENV || 'development',
+		logsFolder = process.env.LOGS_FOLDER || 'logs',
+		ddogApiKey = process.env.DD_API_KEY
 	} = {}
 ) => {
 	if (!service) {
@@ -67,16 +67,11 @@ const winston = (
 		},
 		transports: [
 			new transports.Console(consoleTransportOptions),
-			new DailyRotateFile(fileTransportOptions(service, logfolder))
+			new DailyRotateFile(fileTransportOptions(service, logsFolder))
 		]
 	})
 
-	if (isDdogLogging) {
-		if (!process.env.DD_API_KEY) {
-			throw new Error(
-				'DD_API_KEY missing. Set this variable to your Datadog Agent API Key'
-			)
-		}
+	if (ddogApiKey) {
 		logger.add(new transports.Http(httpTransportOptions(service)))
 	}
 
@@ -88,7 +83,8 @@ const winston = (
 		}
 	}
 
+	logger.debug(`Environment: ${logger.defaultMeta.env}`)
 	return logger
 }
 
-export default winston
+export const winston = createWinstonLogger(serviceName)

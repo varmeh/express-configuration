@@ -1,11 +1,10 @@
 import express from 'express'
 import morgan from 'morgan'
-import createLogger from './winston-logger'
+import { winston } from './winston-logger'
 
 const app = express()
 
 // Logging Configuration
-const winston = createLogger('test-queue')
 app.use(
 	morgan(
 		':remote-addr - :remote-user ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"',
