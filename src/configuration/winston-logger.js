@@ -3,7 +3,7 @@ import os from 'os'
 import { createLogger, format, transports } from 'winston'
 import DailyRotateFile from 'winston-daily-rotate-file'
 import dotenv from 'dotenv'
-import { name as serviceName } from '../package.json'
+import { name as serviceName } from '../../package.json'
 
 dotenv.config()
 const { combine, timestamp, json, colorize, printf } = format

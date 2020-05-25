@@ -1,10 +1,11 @@
 import express from 'express'
 import morgan from 'morgan'
-import { winston } from './winston-logger'
+import { winston, swagger } from './configuration'
+import configureRoutes from './main.routes'
 
 const app = express()
 
-// Logging Configuration
+/* Logging Configuration */
 app.use(
 	morgan(
 		':remote-addr - :remote-user ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"',
@@ -12,16 +13,11 @@ app.use(
 	)
 )
 
-app.get('/', (_, res) =>
-	res.json({ page: 'Home', message: 'Welcome to home page' })
-)
+/* Configure Swagger */
+app.use(swagger())
 
-app.get('/users', (_, res) =>
-	res.json({
-		page: 'User',
-		message: 'You are now on users page'
-	})
-)
+/* Add routes */
+configureRoutes(app)
 
 // Configure for routes that does not exist
 app.use((req, res) => {
