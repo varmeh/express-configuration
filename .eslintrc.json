@@ -1,17 +1,24 @@
 {
+	"extends": ["eslint:recommended", "airbnb-base", "prettier"],
 	"env": {
 		"node": true,
 		"commonjs": true,
 		"es6": true,
 		"jest": true
 	},
-	"extends": ["eslint:recommended", "airbnb-base", "prettier"],
 	"globals": {
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
 	},
+	"parser": "babel-eslint",
 	"parserOptions": {
-		"ecmaVersion": 2018
+		"ecmaVersion": 2018,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true,
+			"modules": true,
+			"experimentalObjectRestSpread": true
+		}
 	},
 	"rules": {
 		"no-console": 0,
@@ -22,6 +29,8 @@
 		"space-before-function-paren": "off",
 		"no-unused-vars": ["error", { "vars": "all", "args": "after-used" }],
 		"comma-dangle": ["error", "never"],
-		"import/prefer-default-export": 0
+		"import/prefer-default-export": 0,
+		"lines-between-class-members": 0,
+		"no-underscore-dangle": 0
 	}
 }
