@@ -1,3 +1,4 @@
+import {} from 'dotenv/config'
 import express from 'express'
 import morgan from 'morgan'
 import { winston, swagger } from './configuration'
