@@ -27,7 +27,15 @@
 		"quotes": ["error", "single"],
 		"semi": 0,
 		"space-before-function-paren": "off",
-		"no-unused-vars": ["error", { "vars": "all", "args": "after-used" }],
+		"no-unused-vars": [
+			"error",
+			{
+				"vars": "all",
+				"args": "all",
+				"varsIgnorePattern": "^_",
+				"argsIgnorePattern": "^_"
+			}
+		],
 		"comma-dangle": ["error", "never"],
 		"import/prefer-default-export": 0,
 		"lines-between-class-members": 0,
