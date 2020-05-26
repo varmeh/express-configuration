@@ -3,6 +3,7 @@ import express from 'express'
 import morgan from 'morgan'
 import { winston, swagger } from './configuration'
 import configureRoutes from './main.routes'
+import { logError, sendErrorResponse } from './error.manager'
 
 const app = express()
 
@@ -27,6 +28,10 @@ app.use((req, res) => {
 		.status(404)
 		.json({ error: true, message: 'Could not find the route', route: res.url })
 })
+
+/* Central Error Handling - Should be done after all the middleware & route configuration */
+app.use(logError)
+app.use(sendErrorResponse)
 
 const port = process.env.PORT || 8080
 app.listen(port, () => {
