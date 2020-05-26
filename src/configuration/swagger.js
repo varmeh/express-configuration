@@ -25,7 +25,7 @@ export default () => {
 	const swaggerDocs = swaggerJSDoc(swaggerOptions)
 	const swaggerUrl = '/api/docs'
 	const swaggerUiOptions = {
-		customSiteTitle: 'Stockal Cash Mangement SwaggerUI',
+		customSiteTitle: 'SwaggerUI',
 		customCss: '.swagger-ui .topbar { display: none }' // hide swagger header
 	}
 
