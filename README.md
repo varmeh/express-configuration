@@ -42,3 +42,12 @@ Logs are transported to:
 -   console
 -   file
 -   datadog (if enabled)
+
+## API Documentation
+
+API documentation is available with both `Swagger` & `Redoc`.
+
+API Docs Links:
+
+-   [Swagger](http://localhost:3000/api/docs/)
+-   [Redoc](http://localhost:3000/api/docs/redoc)

@@ -1,0 +1,79 @@
+{
+	"openapi": "3.0.3",
+	"info": {
+		"title": "Reference API",
+		"version": "1.0.0",
+		"contact": {
+			"name": "Contact Us",
+			"email": "support@documentation.com"
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000/api/",
+			"description": "Development Server"
+		}
+	],
+	"paths": {
+		"/home": {
+			"get": {
+				"summary": "Returns home data",
+				"description": "Returns home information",
+				"tags": ["home"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Home message",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"example": {
+										"message": "Hello World!"
+									}
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Unprocessable Entity",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"example": {
+										"status": "error",
+										"message": "Invalid Inputs",
+										"errors": [
+											{
+												"value": "test5",
+												"msg": "Invalid value",
+												"param": "email",
+												"location": "headers"
+											}
+										]
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"example": {
+										"status": "error",
+										"message": "Unexpected Error",
+										"errors": []
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

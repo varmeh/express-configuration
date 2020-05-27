@@ -1,8 +1,9 @@
 import {} from 'dotenv/config'
 import express from 'express'
 import morgan from 'morgan'
-import { winston, swagger } from './configuration'
+import { winston } from './configuration'
 import configureRoutes from './main.routes'
+import configureDocs from './docs'
 import { logError, sendErrorResponse } from './error.manager'
 
 const app = express()
@@ -16,7 +17,7 @@ app.use(
 )
 
 /* Configure Swagger */
-app.use(swagger())
+configureDocs(app)
 
 /* Add routes */
 configureRoutes(app)
@@ -33,7 +34,7 @@ app.use((req, res) => {
 app.use(logError)
 app.use(sendErrorResponse)
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 3000
 app.listen(port, () => {
 	console.log(`Server on http://localhost:${port}`)
 })
