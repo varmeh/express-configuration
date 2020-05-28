@@ -10,12 +10,12 @@ export const logError = (error, _req, _res, next) => {
 /* Send Error Response to client */
 export const sendErrorResponse = (error, _req, res, _next) => {
 	const { statusCode, message, errors } = error
-	res.status(statusCode).json({ status: 'error', message, errors })
+	res.status(statusCode).json({ errors, message, status: 'error' })
 }
 
 /* Standardized Error */
 export class ErrorResponse extends Error {
-	constructor(statusCode = 500, message, errors = []) {
+	constructor(statusCode = 500, message = '', errors = []) {
 		super(message)
 
 		// Ensure the name of this error is the same as the class name

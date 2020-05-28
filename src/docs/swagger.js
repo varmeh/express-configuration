@@ -7,8 +7,8 @@ import * as swaggerDocs from './swagger.json'
 export default () => {
 	const router = Router()
 	const swaggerUiOptions = {
-		customSiteTitle: 'Stockal Cash Mangement SwaggerUI',
-		customCss: '.swagger-ui .topbar { display: none }' // hide swagger header
+		customCss: '.swagger-ui .topbar { display: none }', // hide swagger header
+		customSiteTitle: 'Stockal Cash Mangement SwaggerUI'
 	}
 
 	router.use('/', swaggerUi.serve)
