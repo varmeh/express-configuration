@@ -15,7 +15,7 @@
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
 	},
-	"plugins": ["import", "promise"],
+	"plugins": ["import", "promise", "jest"],
 	"parser": "babel-eslint",
 	"parserOptions": {
 		"ecmaVersion": 2018,
@@ -152,6 +152,50 @@
 		"promise/avoid-new": 2,
 		"promise/no-new-statics": 2,
 		"promise/no-return-in-finally": 2,
-		"promise/valid-params": 2
+		"promise/valid-params": 2,
+
+		// Rules for eslint-plugin-jest
+		"jest/consistent-test-it": [2, { "fn": "test", "withinDescribe": "test" }],
+		"jest/expect-expect": [
+			2,
+			{ "assertFunctionNames": ["expect", "request.*.expect"] }
+		],
+		"jest/lowercase-name": [
+			2,
+			{ "ignore": ["describe"], "allowedPrefixes": ["GET"] }
+		],
+		"jest/no-alias-methods": 2,
+		"jest/no-commented-out-tests": 1,
+		"jest/no-deprecated-functions": 2,
+		"jest/no-disabled-tests": 1,
+		"jest/no-duplicate-hooks": 2,
+		"jest/no-export": 2,
+		"jest/no-focused-tests": 1,
+		"jest/no-hooks": [2, { "allow": ["beforeEach", "afterEach"] }],
+		"jest/no-identical-title": 2,
+		"jest/no-if": 2,
+		"jest/no-jasmine-globals": 2,
+		"jest/no-jest-import": 2,
+		"jest/no-large-snapshots": 2,
+		"jest/no-mocks-import": 2,
+		"jest/no-standalone-expect": 2,
+		"jest/no-test-callback": 2,
+		"jest/no-test-prefixes": 2,
+		"jest/no-test-return-statement": 2,
+		"jest/no-try-expect": 1,
+		"jest/prefer-called-with": 1,
+		"jest/prefer-hooks-on-top": 2,
+		"jest/prefer-spy-on": 1,
+		"jest/prefer-strict-equal": 2,
+		"jest/prefer-to-be-null": 2,
+		"jest/prefer-to-be-undefined": 2,
+		"jest/prefer-to-contain": 2,
+		"jest/prefer-to-have-length": 2,
+		"jest/prefer-todo": 2,
+		"jest/require-to-throw-message": 2,
+		"jest/require-top-level-describe": 2,
+		"jest/valid-describe": 2,
+		"jest/valid-expect-in-promise": 1,
+		"jest/valid-title": 2
 	}
 }
