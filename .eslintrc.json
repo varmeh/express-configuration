@@ -3,7 +3,6 @@
 		"eslint:recommended",
 		"plugin:import/errors",
 		"plugin:import/warnings",
-		"airbnb-base",
 		"prettier"
 	],
 	"env": {
@@ -85,7 +84,7 @@
 		"camelcase": [2, { "allow": ["^UNSAFE_"] }],
 		"func-names": [2, "as-needed"],
 		"id-match": [2, "^[_a-zA-Z]+([a-zA-Z]+)*$"],
-		"max-len": 2,
+		"max-len": [2, 100],
 		"max-lines-per-function": [
 			2,
 			{ "max": 50, "skipBlankLines": true, "skipComments": true, "IIFEs": true }

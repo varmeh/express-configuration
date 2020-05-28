@@ -11,7 +11,8 @@ const app = express()
 /* Logging Configuration */
 app.use(
 	morgan(
-		':remote-addr - :remote-user ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"',
+		':remote-addr - :remote-user ":method :url HTTP/:http-version" \
+		:status :res[content-length] ":referrer" ":user-agent"',
 		{ stream: winston.stream }
 	)
 )
