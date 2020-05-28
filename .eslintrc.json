@@ -16,7 +16,7 @@
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
 	},
-	"plugins": ["import"],
+	"plugins": ["import", "promise"],
 	"parser": "babel-eslint",
 	"parserOptions": {
 		"ecmaVersion": 2018,
@@ -30,6 +30,7 @@
 	"noInlineConfig": true,
 	"reportUnusedDisableDirectives": true,
 	"rules": {
+		// Eslint Rules on top of rules configured in eslint:recommned
 		"no-console": 0,
 		"indent": [2, "tab"],
 		"linebreak-style": [2, "unix"],
@@ -132,10 +133,26 @@
 			}
 		],
 		"lines-between-class-members": 0,
+
+		// Rules for eslint-plugin-import
 		"import/no-unresolved": [2, { "commonjs": true, "amd": true }],
 		"import/named": 2,
 		"import/default": 2,
 		"import/export": 2,
-		"import/prefer-default-export": 0
+		"import/prefer-default-export": 0,
+
+		// Rules for eslint-plugin-promise
+		"promise/always-return": 2,
+		"promise/no-return-wrap": 2,
+		"promise/param-names": 2,
+		"promise/catch-or-return": 2,
+		"promise/no-native": "off",
+		"promise/no-nesting": 2,
+		"promise/no-promise-in-callback": 2,
+		"promise/no-callback-in-promise": 2,
+		"promise/avoid-new": 2,
+		"promise/no-new-statics": 2,
+		"promise/no-return-in-finally": 2,
+		"promise/valid-params": 2
 	}
 }
