@@ -1,6 +1,6 @@
 import swaggerUi from 'swagger-ui-express'
 import { Router } from 'express'
-import * as swaggerDocs from './swagger.json'
+import swaggerDocs from './swagger.json'
 
 /* Configure Swagger for non-production environment */
 

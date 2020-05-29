@@ -1,10 +1,5 @@
 {
-	"extends": [
-		"eslint:recommended",
-		"plugin:import/errors",
-		"plugin:import/warnings",
-		"prettier"
-	],
+	"extends": ["eslint:recommended", "prettier"],
 	"env": {
 		"node": true,
 		"commonjs": true,
@@ -29,7 +24,7 @@
 	"noInlineConfig": true,
 	"reportUnusedDisableDirectives": true,
 	"rules": {
-		// Eslint Rules on top of rules configured in eslint:recommned
+		/* Eslint Rules on top of rules configured in eslint:recommned */
 		"no-console": 0,
 		"indent": [2, "tab"],
 		"linebreak-style": [2, "unix"],
@@ -133,14 +128,47 @@
 		],
 		"lines-between-class-members": 0,
 
-		// Rules for eslint-plugin-import
-		"import/no-unresolved": [2, { "commonjs": true, "amd": true }],
+		/* Rules for eslint-plugin-import */
+		"import/no-unresolved": 2,
 		"import/named": 2,
 		"import/default": 2,
 		"import/export": 2,
+		"import/no-absolute-path": 2,
+		"import/no-dynamic-require": 2,
+		"import/no-cycle": 2,
+		"import/no-relative-parent-imports": 0,
+		"import/no-webpack-loader-syntax": 0,
+		"import/no-self-import": 2,
+		"import/no-useless-path-segments": 2,
+		"import/no-named-as-default": 2,
+		"import/no-named-as-default-member": 0,
+		"import/no-deprecated": 2,
+		"import/no-extraneous-dependencies": [
+			2,
+			{
+				"devDependencies": true,
+				"optionalDependencies": false,
+				"peerDependencies": false,
+				"bundledDependencies": true
+			}
+		],
+		"import/no-mutable-exports": 2,
+		"import/unambiguous": 0,
+		"import/no-commonjs": [2, { "allowRequire": true }],
+		"import/no-amd": 2,
+		"import/no-nodejs-modules": 0,
+		"import/first": 2,
+		"import/exports-last": 0,
+		"import/no-duplicates": 2,
+		"import/no-namespace": 2,
+		"import/extensions": [2, { "js": "never", "json": "always" }],
+		"import/order": 2,
+		"import/newline-after-import": 2,
 		"import/prefer-default-export": 0,
+		"import/no-unassigned-import": 0,
+		"import/no-named-default": 0,
 
-		// Rules for eslint-plugin-promise
+		/* Rules for eslint-plugin-promise */
 		"promise/always-return": 2,
 		"promise/no-return-wrap": 2,
 		"promise/param-names": 2,
@@ -154,7 +182,7 @@
 		"promise/no-return-in-finally": 2,
 		"promise/valid-params": 2,
 
-		// Rules for eslint-plugin-jest
+		/* Rules for eslint-plugin-jest */
 		"jest/consistent-test-it": [2, { "fn": "test", "withinDescribe": "test" }],
 		"jest/expect-expect": [
 			2,
