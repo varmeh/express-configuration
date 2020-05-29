@@ -76,9 +76,16 @@
 		"require-await": 2,
 		"no-undefined": 2,
 		"no-use-before-define": 2,
-		"camelcase": [2, { "allow": ["^UNSAFE_"] }],
 		"func-names": [2, "as-needed"],
-		"id-match": [2, "^[_a-zA-Z]+([a-zA-Z]+)*$"],
+		"camelcase": [
+			2,
+			{ "properties": "always", "ignoreImports": true, "allow": ["^UNSAFE_"] }
+		],
+		"id-match": [
+			2,
+			"^[_]?[a-zA-Z0-9]*$",
+			{ "properties": true, "ignoreDestructuring": false }
+		],
 		"max-len": [2, 100],
 		"max-lines-per-function": [
 			2,
