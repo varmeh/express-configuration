@@ -1,4 +1,5 @@
 module.exports = {
+	testEnvironment: 'node',
 	roots: ['<rootDir>/src'],
 	collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
 	coveragePathIgnorePatterns: [

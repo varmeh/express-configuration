@@ -10,6 +10,17 @@
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
 	},
+	"overrides": [
+		{
+			"files": ["*.test.js"],
+			"rules": {
+				"max-lines-per-function": 0,
+				"max-statements": 0,
+				"no-magic-numbers": 0,
+				"max-nested-callbacks": 0
+			}
+		}
+	],
 	"plugins": ["import", "promise", "jest"],
 	"parser": "babel-eslint",
 	"parserOptions": {

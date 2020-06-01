@@ -45,7 +45,10 @@ const httpTransportOptions = service => ({
 
 /**
  * Create a custom Winston logger instance
- * @param {Object} options - configurable via Node env variables: NODE_ENV, LOGS_FOLDER & DD_API_KEY
+ * @param {Object} options - configurable via Node env variables:
+ * 				 			NODE_ENV
+ * 							LOGS_FOLDER
+ * 							DD_API_KEY
  * @param {string} service - service name
  * @returns {winston.logger}
  */
