@@ -1,11 +1,12 @@
-import { ErrorResponse, addToken, winston } from '../../util'
+import { Conflict, Unauthorized } from 'http-errors'
+import { addToken, winston } from '../../util'
 import usersDb from '../../users.db'
 
 export const userSignup = (req, res) => {
 	const { email, password } = req.body
 
 	if (usersDb[email]) {
-		throw new ErrorResponse(409, 'User with credentials already exist')
+		throw new Conflict('User with credentials already exist')
 	} else {
 		usersDb[email] = password
 		winston.debug({ msg: 'users db', users: usersDb })
@@ -21,7 +22,7 @@ export const userSignin = (req, res) => {
 		addToken(res, email)
 		res.json({ status: 'success' })
 	} else {
-		throw new ErrorResponse(401, 'Invalid Credentials')
+		throw new Unauthorized('Invalid Credentials')
 	}
 }
 

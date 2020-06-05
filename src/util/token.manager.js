@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
+import { BadRequest, Unauthorized } from 'http-errors'
 import { winston } from './winston.logger'
-import { ErrorResponse } from './error.manager'
 
 const appToken = 'access_token'
 const jwtExpirySeconds = process.env.NODE_ENV === 'prod' ? 300 : 300
@@ -21,10 +21,10 @@ const extractPayload = token => {
 	} catch (error) {
 		if (error instanceof jwt.JsonWebTokenError) {
 			// if the error thrown is because the JWT is unauthorized, return a 401 error
-			throw new ErrorResponse(401, 'Unauthorized User')
+			throw new Unauthorized('Unauthorized User')
 		}
 		// otherwise, return a bad request error
-		throw new ErrorResponse(400, 'Bad Request')
+		throw new BadRequest('Bad Request')
 	}
 }
 
@@ -52,7 +52,7 @@ export const authenticateToken = (req, _res, next) => {
 			status: 'error',
 			msg: 'auth token missing'
 		})
-		throw new ErrorResponse(400, 'Bad Request')
+		throw new BadRequest('Bad Request - no authorization token')
 	}
 	next()
 }

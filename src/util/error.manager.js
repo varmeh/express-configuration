@@ -7,7 +7,7 @@ export const sendErrorResponse = (error, _req, res, _next) => {
 }
 
 /* Standardized Error */
-export class ErrorResponse extends Error {
+export class ValidationError extends Error {
 	constructor(statusCode, message, errors = []) {
 		super(message || 'Internal Server Error')
 
@@ -23,7 +23,7 @@ export const validationErrorHandler = (req, _res, next) => {
 	const errors = validationResult(req)
 	if (!errors.isEmpty()) {
 		// We have validation error
-		throw new ErrorResponse(422, 'Invalid Inputs', errors.array())
+		throw new ValidationError(422, 'Invalid Inputs', errors.array())
 	}
 	next()
 }
