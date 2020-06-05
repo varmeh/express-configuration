@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1591386820183" clover="3.2.0">
+  <project timestamp="1591386820183" name="All files">
+    <metrics statements="133" coveredstatements="97" conditionals="46" coveredconditionals="24" methods="27" coveredmethods="14" elements="206" coveredelements="135" complexity="0" loc="133" ncloc="133" packages="6" files="17" classes="17"/>
+    <package name="src">
+      <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="app.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/app.js">
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+      </file>
+      <file name="main.routes.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/main.routes.js">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+      </file>
+      <file name="users.db.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/users.db.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.api.admin">
+      <metrics statements="8" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="admin.controller.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/api/admin/admin.controller.js">
+        <metrics statements="6" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+      </file>
+      <file name="admin.routes.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/api/admin/admin.routes.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.api.auth">
+      <metrics statements="26" coveredstatements="19" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="3"/>
+      <file name="auth.controller.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/api/auth/auth.controller.js">
+        <metrics statements="17" coveredstatements="10" conditionals="4" coveredconditionals="2" methods="3" coveredmethods="1"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="7" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+      </file>
+      <file name="auth.routes.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/api/auth/auth.routes.js">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+      </file>
+      <file name="auth.validator.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/api/auth/auth.validator.js">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.api.home">
+      <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="home.controller.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/api/home/home.controller.js">
+        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="0" type="stmt"/>
+      </file>
+      <file name="home.routes.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/api/home/home.routes.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.api.services">
+      <metrics statements="6" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="services.controller.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/api/services/services.controller.js">
+        <metrics statements="4" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+      </file>
+      <file name="services.routes.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/api/services/services.routes.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+      </file>
+      <file name="services.validator.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/api/services/services.validator.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.util">
+      <metrics statements="75" coveredstatements="55" conditionals="40" coveredconditionals="22" methods="18" coveredmethods="10"/>
+      <file name="error.manager.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/util/error.manager.js">
+        <metrics statements="12" coveredstatements="12" conditionals="7" coveredconditionals="5" methods="3" coveredmethods="3"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="10" type="stmt"/>
+        <line num="6" count="10" type="stmt"/>
+        <line num="12" count="10" type="cond" truecount="1" falsecount="1"/>
+        <line num="15" count="10" type="stmt"/>
+        <line num="16" count="10" type="cond" truecount="1" falsecount="1"/>
+        <line num="17" count="10" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="12" type="stmt"/>
+        <line num="24" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="9" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
+      </file>
+      <file name="logger.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/util/logger.js">
+        <metrics statements="13" coveredstatements="13" conditionals="3" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="12" type="stmt"/>
+        <line num="9" count="12" type="stmt"/>
+        <line num="20" count="12" type="stmt"/>
+        <line num="21" count="12" type="stmt"/>
+        <line num="23" count="12" type="stmt"/>
+        <line num="24" count="12" type="stmt"/>
+        <line num="26" count="12" type="stmt"/>
+        <line num="47" count="12" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="52" count="10" type="stmt"/>
+        <line num="53" count="10" type="stmt"/>
+        <line num="63" count="10" type="stmt"/>
+      </file>
+      <file name="token.manager.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/util/token.manager.js">
+        <metrics statements="28" coveredstatements="13" conditionals="12" coveredconditionals="2" methods="6" coveredmethods="2"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="8" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="47" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
+      </file>
+      <file name="winston.logger.js" path="/Users/varunmehta/Projects/mern/winston-configuration/src/util/winston.logger.js">
+        <metrics statements="22" coveredstatements="17" conditionals="18" coveredconditionals="13" methods="6" coveredmethods="2"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="74" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="78" count="2" type="stmt"/>
+        <line num="88" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="89" count="2" type="stmt"/>
+        <line num="92" count="2" type="cond" truecount="2" falsecount="2"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="97" count="2" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
+        <line num="104" count="2" type="stmt"/>
+        <line num="105" count="2" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
