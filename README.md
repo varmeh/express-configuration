@@ -49,5 +49,10 @@ API documentation is available with both `Swagger` & `Redoc`.
 
 API Docs Links:
 
--   [Swagger](http://localhost:3000/api/docs/)
--   [Redoc](http://localhost:3000/api/docs/redoc)
+-   Published:
+
+    -   [Postman Docucenter](https://documenter.getpostman.com/view/124355/SztK1Q6Q?version=latest)
+
+-   Local to Server
+    -   [Swagger](http://localhost:3000/api/docs/)
+    -   [Redoc](http://localhost:3000/api/docs/redoc)

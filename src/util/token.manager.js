@@ -3,18 +3,21 @@ import { winston } from './winston.logger'
 import { ErrorResponse } from './error.manager'
 
 const appToken = 'access_token'
-const icmToken = 'icm_token'
 const jwtExpirySeconds = process.env.NODE_ENV === 'prod' ? 300 : 300
+const secretKey =
+	process.env.NODE_ENV === 'prod'
+		? process.env.JWT_SECRET
+		: 'test_secret_key_for_jwt'
 
 const generateToken = id =>
-	jwt.sign({ id }, process.env.JWT_SECRET, {
+	jwt.sign({ id }, secretKey, {
 		algorithm: 'HS256',
 		expiresIn: jwtExpirySeconds
 	})
 
 const extractPayload = token => {
 	try {
-		return jwt.verify(token, process.env.JWT_SECRET)
+		return jwt.verify(token, secretKey)
 	} catch (error) {
 		if (error instanceof jwt.JsonWebTokenError) {
 			// if the error thrown is because the JWT is unauthorized, return a 401 error
@@ -33,30 +36,25 @@ const getIdFromToken = token => {
 	return null
 }
 
-export const addTokens = (res, appTokenValue, icmTokenValue) => {
+export const addToken = (res, appTokenValue) => {
 	const token = {}
 	token[appToken] = generateToken(appTokenValue)
-	token[icmToken] = generateToken(icmTokenValue)
 	res.set(token)
 }
 
-export const authenticateTokens = (req, _res, next) => {
-	if (!req.get(appToken) || !req.get(icmToken)) {
+export const authenticateToken = (req, _res, next) => {
+	console.log(req.get(appToken))
+	if (req.get(appToken)) {
+		// Extract payload throws errors for stale tokens
+		extractPayload(req.get(appToken))
+	} else {
 		winston.error({
 			status: 'error',
-			msg: 'auth token missing',
-			tokenStatus: {
-				accessToken: !!req.get(appToken),
-				icmToken: !!req.get(icmToken)
-			}
+			msg: 'auth token missing'
 		})
 		throw new ErrorResponse(400, 'Bad Request')
-	} else {
-		// Extract payload throws errors for stale tokens
-		extractPayload(appToken)
 	}
 	next()
 }
 
-export const getAppToken = req => getIdFromToken(req.get(appToken))
-export const getIcmToken = req => getIdFromToken(req.get(icmToken))
+export const getToken = req => getIdFromToken(req.get(appToken))

@@ -1,7 +1,7 @@
 {
-	"name": "icm-server",
+	"name": "express-server",
 	"version": "0.1.0",
-	"description": "Cash Management API Server",
+	"description": "Express Production Ready Configuration",
 	"main": "index.js",
 	"scripts": {
 		"test": "jest",
@@ -20,7 +20,9 @@
 		"nodejs",
 		"winston",
 		"datadog",
-		"datadog-logs"
+		"datadog-logs",
+		"jsonwebtoken",
+		"jwt"
 	],
 	"author": "varun",
 	"license": "MIT",

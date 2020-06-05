@@ -2,8 +2,8 @@ import express from 'express'
 
 const router = express.Router()
 
-const { getHome } = require('./home.controller')
+const { helloWorld } = require('./home.controller')
 
-router.get('/home', getHome)
+router.get('/hello', helloWorld)
 
 export default router
