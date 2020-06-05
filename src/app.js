@@ -1,21 +1,20 @@
-import {} from 'dotenv/config'
 import express from 'express'
-import morgan from 'morgan'
-import { winston } from './configuration'
-import configureRoutes from './main.routes'
+import { errorLogger, responseLogger, sendErrorResponse } from './util'
 import configureDocs from './docs'
-import { logError, sendErrorResponse } from './error.manager'
+
+import configureRoutes from './main.routes'
+import { configureApp } from './configuration'
 
 const app = express()
 
 /* Logging Configuration */
-app.use(
-	morgan(
-		':remote-addr - :remote-user ":method :url HTTP/:http-version" \
-		:status :res[content-length] ":referrer" ":user-agent"',
-		{ stream: winston.stream }
-	)
-)
+configureApp(app)
+
+/* Configure Logger */
+app.use(responseLogger)
+
+/* Configure Middlewares */
+app.post('/*', express.json())
 
 /* Configure Swagger */
 configureDocs(app)
@@ -23,16 +22,8 @@ configureDocs(app)
 /* Add routes */
 configureRoutes(app)
 
-// Configure for routes that does not exist
-app.use((req, res) => {
-	winston.error(`${req.ip} - ${req.method} - ${req.url} - ${req.hostname}`)
-	res
-		.status(404)
-		.json({ error: true, message: 'Could not find the route', route: res.url })
-})
-
-/* Central Error Handling - Should be done after all the middleware & route configuration */
-app.use(logError)
+/* Central Error Handling - Should be done before starting listener */
+app.use(errorLogger)
 app.use(sendErrorResponse)
 
 export default app

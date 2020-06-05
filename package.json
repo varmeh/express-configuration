@@ -1,14 +1,16 @@
 {
-	"name": "express-configuration",
+	"name": "icm-server",
 	"version": "0.1.0",
-	"description": "Express app prod configuration",
+	"description": "Cash Management API Server",
 	"main": "index.js",
 	"scripts": {
 		"test": "jest",
+		"test:verbose": "jest --verbose",
 		"test:coverage": "jest --coverage",
 		"test:watch": "jest --watch",
 		"lint": "./node_modules/.bin/eslint --fix .",
 		"babel-node": "./node_modules/.bin/nodemon --exec ./node_modules/.bin/babel-node -- src/index.js",
+		"dev": "./node_modules/.bin/nodemon --inspect --exec ./node_modules/.bin/babel-node -- src/index.js",
 		"start": "./node_modules/.bin/run-s lint babel-node"
 	},
 	"keywords": [
@@ -27,7 +29,8 @@
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
 		"express-validator": "^6.5.0",
-		"morgan": "^1.10.0",
+		"json-stringify-safe": "^5.0.1",
+		"jsonwebtoken": "^8.5.1",
 		"swagger-ui-express": "^4.1.4",
 		"winston": "^3.2.1",
 		"winston-daily-rotate-file": "^4.4.2"

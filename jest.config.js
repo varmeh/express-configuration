@@ -1,12 +1,12 @@
 module.exports = {
 	testEnvironment: 'node',
 	roots: ['<rootDir>/src'],
-	collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
+	collectCoverageFrom: ['**/*.{js,jsx,ts,tsx}', '!**/*.d.ts'],
 	coveragePathIgnorePatterns: [
-		'/node_modules/',
-		'/coverage/',
-		'/logs/',
-		'/.vscode/'
+		'/docs/',
+		'/configuration/',
+		'index.js',
+		'icmUrl.js'
 	],
 	coverageThreshold: {},
 	moduleDirectories: ['node_modules'],

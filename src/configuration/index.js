@@ -1,3 +1,5 @@
 import './axios.config'
 
-export * from './winston-logger'
+export const configureApp = app => {
+	app.disable('x-powered-by')
+}

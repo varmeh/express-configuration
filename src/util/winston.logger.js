@@ -1,4 +1,6 @@
 import os from 'os'
+import stringify from 'json-stringify-safe'
+
 import DailyRotateFile from 'winston-daily-rotate-file'
 import { createLogger, format, transports } from 'winston'
 import { name as serviceName } from '../../package.json'
@@ -6,13 +8,17 @@ import { name as serviceName } from '../../package.json'
 const { combine, json, colorize, printf } = format
 
 const logFormat = printf(
-	({ level, timestamp, host, message }) =>
-		`${level} - ${timestamp} - ${host} - ${JSON.stringify(message, null, 4)}`
+	({ level, timestamp, service, host, message }) =>
+		`${level} - ${timestamp} - ${service} - ${host} - ${stringify(
+			message,
+			null,
+			4
+		)}`
 )
 
 const consoleFormat = printf(
-	({ level, timestamp, message }) =>
-		`${level} - ${timestamp} - ${JSON.stringify(message, null, 2)}`
+	({ level, timestamp, service, message }) =>
+		`${level} - ${timestamp} - ${service} - ${stringify(message, null, 2)}`
 )
 
 const timestampFormat = format.timestamp({
@@ -21,7 +27,8 @@ const timestampFormat = format.timestamp({
 
 const consoleTransportOptions = {
 	format: combine(colorize(), timestampFormat, consoleFormat),
-	level: 'debug'
+	level: 'debug',
+	silent: process.env.NODE_ENV === 'test'
 }
 
 const fileTransportOptions = (service, logsfolder) => ({
@@ -32,6 +39,7 @@ const fileTransportOptions = (service, logsfolder) => ({
 	level: 'debug',
 	maxFiles: '15d',
 	maxSize: '100m',
+	silent: process.env.NODE_ENV === 'test',
 	zippedArchive: false
 })
 
@@ -40,6 +48,7 @@ const httpTransportOptions = service => ({
 	host: 'http-intake.logs.datadoghq.com',
 	level: 'info',
 	path: `/v1/input/${process.env.DD_API_KEY}?ddsource=nodejs&service=${service}`,
+	silent: process.env.NODE_ENV === 'test',
 	ssl: true
 })
 
@@ -57,7 +66,9 @@ export const createWinstonLogger = (
 	{
 		env = process.env.NODE_ENV || 'dev',
 		logsFolder = process.env.LOGS_FOLDER || 'logs',
-		ddogApiKey = process.env.DD_API_KEY
+		ddogApiKey = process.env.DD_API_KEY,
+		consoleLogging = true,
+		dataDogLogging = false
 	} = {}
 ) => {
 	if (!service) {
@@ -71,13 +82,14 @@ export const createWinstonLogger = (
 			service
 		},
 		exitOnError: false,
-		transports: [
-			new transports.Console(consoleTransportOptions),
-			new DailyRotateFile(fileTransportOptions(service, logsFolder))
-		]
+		transports: [new DailyRotateFile(fileTransportOptions(service, logsFolder))]
 	})
 
-	if (ddogApiKey) {
+	if (consoleLogging) {
+		logger.add(new transports.Console(consoleTransportOptions))
+	}
+
+	if (dataDogLogging && ddogApiKey) {
 		logger.add(new transports.Http(httpTransportOptions(service)))
 	}
 
@@ -89,7 +101,7 @@ export const createWinstonLogger = (
 		}
 	}
 
-	logger.debug(`Environment: ${logger.defaultMeta.env}`)
+	logger.debug({ nodeEnv: logger.defaultMeta.env })
 	return logger
 }
 

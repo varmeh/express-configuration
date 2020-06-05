@@ -1,7 +1,7 @@
-import homeRoutes from './home/home.routes'
+import { homeRouter } from './api'
 
 /* Remember order matters when registering routes */
 export default app => {
 	const baseUrl = '/api'
-	app.use(baseUrl, homeRoutes)
+	app.use(baseUrl, homeRouter)
 }

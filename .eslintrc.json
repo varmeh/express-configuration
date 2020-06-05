@@ -10,17 +10,6 @@
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
 	},
-	"overrides": [
-		{
-			"files": ["*.test.js"],
-			"rules": {
-				"max-lines-per-function": 0,
-				"max-statements": 0,
-				"no-magic-numbers": 0,
-				"max-nested-callbacks": 0
-			}
-		}
-	],
 	"plugins": ["import", "promise", "jest"],
 	"parser": "babel-eslint",
 	"parserOptions": {
@@ -32,12 +21,24 @@
 			"experimentalObjectRestSpread": true
 		}
 	},
+	"overrides": [
+		{
+			"files": ["*.test.js", "winston.logger.js"],
+			"rules": {
+				"complexity": 0,
+				"max-lines-per-function": 0,
+				"max-statements": 0,
+				"max-len": 0,
+				"no-magic-numbers": 0,
+				"max-nested-callbacks": 0
+			}
+		}
+	],
 	"noInlineConfig": true,
 	"reportUnusedDisableDirectives": true,
 	"rules": {
 		/* Eslint Rules on top of rules configured in eslint:recommned */
 		"no-console": 0,
-		"indent": [2, "tab"],
 		"linebreak-style": [2, "unix"],
 		"quotes": [2, "single"],
 		"semi": 0,
@@ -52,8 +53,9 @@
 			}
 		],
 		"comma-dangle": [2, "never"],
+		"comma-spacing": [2, { "before": false, "after": true }],
 		"block-scoped-var": 2,
-		"complexity": [2, { "max": 5 }],
+		"complexity": [2, { "max": 6 }],
 		"consistent-return": 2,
 		"default-case": 2,
 		"default-param-last": 2,
@@ -87,14 +89,14 @@
 		"require-await": 2,
 		"no-undefined": 2,
 		"no-use-before-define": 2,
-		"func-names": [2, "as-needed"],
 		"camelcase": [
 			2,
 			{ "properties": "always", "ignoreImports": true, "allow": ["^UNSAFE_"] }
 		],
+		"func-names": [2, "as-needed"],
 		"id-match": [
 			2,
-			"^[_]?[a-zA-Z0-9]*$",
+			"^[_]*[a-zA-Z0-9]*$",
 			{ "properties": true, "ignoreDestructuring": false }
 		],
 		"max-len": [2, 100],
@@ -104,7 +106,7 @@
 		],
 		"max-nested-callbacks": [2, 3],
 		"max-params": [2, 4],
-		"max-statements": [2, 10, { "ignoreTopLevelFunctions": true }],
+		"max-statements": [2, 20, { "ignoreTopLevelFunctions": true }],
 		"max-statements-per-line": [2, { "max": 1 }],
 		"new-cap": [2, { "newIsCap": true, "capIsNew": false }],
 		"no-array-constructor": 2,
@@ -115,7 +117,7 @@
 		"no-plusplus": 2,
 		"no-unneeded-ternary": 2,
 		"no-underscore-dangle": 0,
-		"sort-keys": 2,
+		"sort-keys": 0,
 		"no-duplicate-imports": [2, { "includeExports": true }],
 		"no-useless-constructor": 2,
 		"prefer-rest-params": 2,
@@ -140,7 +142,7 @@
 			{
 				"ignoreCase": false,
 				"ignoreDeclarationSort": true,
-				"ignoreMemberSort": false,
+				"ignoreMemberSort": true,
 				"memberSyntaxSortOrder": ["all", "single", "multiple", "none"]
 			}
 		],
@@ -225,14 +227,14 @@
 		"jest/no-large-snapshots": 2,
 		"jest/no-mocks-import": 2,
 		"jest/no-standalone-expect": 2,
-		"jest/no-test-callback": 2,
+		"jest/no-test-callback": 0,
 		"jest/no-test-prefixes": 2,
 		"jest/no-test-return-statement": 2,
 		"jest/no-try-expect": 1,
 		"jest/prefer-called-with": 1,
 		"jest/prefer-hooks-on-top": 2,
 		"jest/prefer-spy-on": 1,
-		"jest/prefer-strict-equal": 2,
+		"jest/prefer-strict-equal": 0,
 		"jest/prefer-to-be-null": 2,
 		"jest/prefer-to-be-undefined": 2,
 		"jest/prefer-to-contain": 2,
