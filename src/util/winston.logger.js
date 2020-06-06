@@ -101,7 +101,12 @@ export const createWinstonLogger = (
 		}
 	}
 
-	logger.debug({ nodeEnv: logger.defaultMeta.env })
+	logger.debug({
+		nodeEnv: logger.defaultMeta.env,
+		consoleLogging,
+		dataDogLogging,
+		logsFolder
+	})
 	return logger
 }
 

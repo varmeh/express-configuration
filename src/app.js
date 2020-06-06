@@ -1,5 +1,10 @@
 import express from 'express'
-import { errorLogger, responseLogger, sendErrorResponse } from './util'
+import {
+	errorLogger,
+	requestLogger,
+	responseLogger,
+	sendErrorResponse
+} from './util'
 import configureDocs from './docs'
 
 import configureRoutes from './main.routes'
@@ -11,6 +16,7 @@ const app = express()
 configureApp(app)
 
 /* Configure Logger */
+app.use(requestLogger)
 app.use(responseLogger)
 
 /* Configure Middlewares */
