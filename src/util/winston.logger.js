@@ -1,5 +1,6 @@
 import os from 'os'
 import stringify from 'json-stringify-safe'
+import rTracer from 'cls-rtracer'
 
 import DailyRotateFile from 'winston-daily-rotate-file'
 import { createLogger, format, transports } from 'winston'
@@ -7,26 +8,27 @@ import { name as serviceName } from '../../package.json'
 
 const { combine, json, colorize, printf } = format
 
-const logFormat = printf(
-	({ level, timestamp, service, host, message }) =>
-		`${level} - ${timestamp} - ${service} - ${host} - ${stringify(
-			message,
-			null,
-			4
-		)}`
-)
-
-const consoleFormat = printf(
-	({ level, timestamp, service, message }) =>
-		`${level} - ${timestamp} - ${service} - ${stringify(message, null, 2)}`
-)
+const logFormat = printf(({ level, timestamp, service, host, message }) => {
+	const rid = rTracer.id()
+	return rid
+		? `${level} - ${timestamp} - ${rid} - ${service} - ${host} - ${stringify(
+				message,
+				null,
+				4
+		  )}`
+		: `${level} - ${timestamp} - ${service} - ${host} - ${stringify(
+				message,
+				null,
+				4
+		  )}`
+})
 
 const timestampFormat = format.timestamp({
 	format: 'MM-DD-YYYY HH:mm:ss'
 })
 
 const consoleTransportOptions = {
-	format: combine(colorize(), timestampFormat, consoleFormat),
+	format: combine(colorize(), timestampFormat, logFormat),
 	level: 'debug',
 	silent: process.env.NODE_ENV === 'test'
 }

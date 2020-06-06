@@ -1,12 +1,10 @@
 import axios from 'axios'
-import { createWinstonLogger } from '../util'
-
-const logger = createWinstonLogger('axios')
+import { winston } from '../util'
 
 axios.defaults.baseURL = process.env.ICM_URL || 'http://testUrl/api'
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 
-logger.debug({ msg: 'config', config: axios.defaults })
+winston.debug({ msg: 'config', config: axios.defaults })
 
 const logAxiosResponseError = (error, info) => {
 	const {
@@ -15,7 +13,7 @@ const logAxiosResponseError = (error, info) => {
 		config: { url, method, data }
 	} = error
 
-	logger.error({
+	winston.debug({
 		loggedAt: 'axios response interceptor',
 		status: 'error',
 		method,
@@ -30,7 +28,7 @@ const logAxiosResponseError = (error, info) => {
 axios.interceptors.request.use(
 	config => {
 		const { method, data, headers, url } = config
-		logger.info({
+		winston.info({
 			loggedAt: 'axios request interceptor',
 			status: 'success',
 			method,
@@ -41,7 +39,7 @@ axios.interceptors.request.use(
 		return config
 	},
 	error => {
-		logger.error({
+		winston.debug({
 			loggedAt: 'axios request interceptor',
 			status: 'error',
 			error
@@ -57,7 +55,7 @@ axios.interceptors.response.use(
 			data,
 			status
 		} = response
-		logger.info({
+		winston.debug({
 			loggedAt: 'axios response interceptor',
 			status: 'success',
 			statusCode: status,
@@ -78,7 +76,7 @@ axios.interceptors.response.use(
 				data
 			} = error.response
 
-			logger.error({
+			winston.debug({
 				loggedAt: 'axios response interceptor',
 				status: 'error',
 				statusCode: status,

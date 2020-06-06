@@ -1,12 +1,9 @@
-import { v4 as uuidv4 } from 'uuid'
-import { createWinstonLogger } from './winston.logger'
-
-const logger = createWinstonLogger('api-logs')
+import { winston } from './winston.logger'
 
 /**
  * This logger logs all responses going out of express logging utility
  */
-export const requestLogger = (req, res, next) => {
+export const requestLogger = (req, _res, next) => {
 	const {
 		originalUrl,
 		method,
@@ -20,12 +17,7 @@ export const requestLogger = (req, res, next) => {
 	} = req
 	const { remoteAddress, remoteFamily } = socket
 
-	// Generate tracking id for request
-	const id = uuidv4()
-	res.locals.id = id
-
-	logger.info({
-		id,
+	winston.info({
 		loggedAt: 'requestLogger',
 		url: originalUrl,
 		method,
@@ -55,10 +47,7 @@ export const responseLogger = (req, res, next) => {
 		const { statusCode, statusMessage } = res
 		const headers = res.getHeaders()
 
-		const { id } = res.locals
-
-		logger.info({
-			id,
+		winston.info({
 			loggedAt: 'responseLogger',
 			url: originalUrl,
 			method,
@@ -75,11 +64,9 @@ export const responseLogger = (req, res, next) => {
 }
 
 /* Log Error Information for the production enginer */
-export const errorLogger = (error, req, res, next) => {
+export const errorLogger = (error, req, _res, next) => {
 	const { originalUrl, method, hostname, ip, protocol } = req
-	const { id } = res.locals
-	logger.error({
-		id,
+	winston.error({
 		loggedAt: 'errorLogger',
 		url: originalUrl,
 		method,

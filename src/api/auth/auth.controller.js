@@ -17,7 +17,6 @@ export const userSignup = (req, res) => {
 
 export const userSignin = (req, res) => {
 	const { email, password } = req.body
-	console.log(email, password, usersDb[email])
 	if (usersDb[email] === password) {
 		addToken(res, email)
 		res.json({ status: 'success' })

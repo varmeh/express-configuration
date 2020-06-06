@@ -43,7 +43,6 @@ export const addToken = (res, appTokenValue) => {
 }
 
 export const authenticateToken = (req, _res, next) => {
-	console.log(req.get(appToken))
 	if (req.get(appToken)) {
 		// Extract payload throws errors for stale tokens
 		extractPayload(req.get(appToken))

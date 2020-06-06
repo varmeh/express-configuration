@@ -28,6 +28,8 @@
 	"license": "MIT",
 	"dependencies": {
 		"axios": "^0.19.2",
+		"cls-hooked": "^4.2.2",
+		"cls-rtracer": "^1.4.1",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
 		"express-validator": "^6.5.0",
@@ -35,7 +37,6 @@
 		"json-stringify-safe": "^5.0.1",
 		"jsonwebtoken": "^8.5.1",
 		"swagger-ui-express": "^4.1.4",
-		"uuid": "^8.1.0",
 		"winston": "^3.2.1",
 		"winston-daily-rotate-file": "^4.4.2"
 	},

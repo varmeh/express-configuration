@@ -1,4 +1,6 @@
 import express from 'express'
+import rTracer from 'cls-rtracer'
+
 import {
 	errorLogger,
 	requestLogger,
@@ -12,15 +14,16 @@ import { configureApp } from './configuration'
 
 const app = express()
 
-/* Logging Configuration */
+/* Configuration */
 configureApp(app)
+
+/* Configure Middlewares */
+app.use(rTracer.expressMiddleware())
+app.post('/*', express.json())
 
 /* Configure Logger */
 app.use(requestLogger)
 app.use(responseLogger)
-
-/* Configure Middlewares */
-app.post('/*', express.json())
 
 /* Configure Swagger */
 configureDocs(app)
