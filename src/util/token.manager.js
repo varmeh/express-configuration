@@ -21,10 +21,10 @@ const extractPayload = token => {
 	} catch (error) {
 		if (error instanceof jwt.JsonWebTokenError) {
 			// if the error thrown is because the JWT is unauthorized, return a 401 error
-			throw new Unauthorized('Unauthorized User')
+			throw new Unauthorized('Unauhorized - Invalid Tokens')
 		}
 		// otherwise, return a bad request error
-		throw new BadRequest('Bad Request')
+		throw new BadRequest('Bad Request - Invalid Token')
 	}
 }
 
