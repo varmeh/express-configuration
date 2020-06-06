@@ -87,6 +87,9 @@ axios.interceptors.response.use(
 				data
 			})
 
+			// As error.response is returned & it does not have a message key,
+			// So, add one to accomodate error.response
+			error.response.message = error.message
 			return Promise.reject(error.response)
 		} else if (error.request) {
 			// The request was made but no response was received
