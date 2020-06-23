@@ -11,14 +11,13 @@ export const requestLogger = (req, _res, next) => {
 		httpVersion,
 		ip,
 		protocol,
-		headers,
 		body,
 		socket
 	} = req
 	const { remoteAddress, remoteFamily } = socket
 
 	winston.info({
-		loggedAt: 'requestLogger',
+		src: 'requestLogger',
 		url: originalUrl,
 		method,
 		hostname,
@@ -26,13 +25,37 @@ export const requestLogger = (req, _res, next) => {
 		ip,
 		protocol,
 		remoteAddress,
-		remoteFamily,
+		remoteFamily
+	})
+
+	winston.debug({
+		src: 'requestLogger',
+		url: originalUrl,
+		method,
 		req: {
-			headers,
 			body
 		}
 	})
+
 	next()
+}
+
+/**
+ * This logger logs all error reported to central error handler
+ */
+export const errorLogger = (error, req, _res, next) => {
+	const { originalUrl, method, hostname, ip, protocol } = req
+	winston.error({
+		src: 'errorLogger',
+		url: originalUrl,
+		method,
+		ip,
+		hostname,
+		protocol,
+		statusCode: error.status || 500,
+		text: error.message
+	})
+	next(error)
 }
 
 /**
@@ -45,10 +68,9 @@ export const responseLogger = (req, res, next) => {
 		const { originalUrl, method, hostname } = req
 
 		const { statusCode, statusMessage } = res
-		const headers = res.getHeaders()
 
 		winston.info({
-			loggedAt: 'responseLogger',
+			src: 'responseLogger',
 			url: originalUrl,
 			method,
 			hostname,
@@ -56,26 +78,9 @@ export const responseLogger = (req, res, next) => {
 				statusCode,
 				statusMessage,
 				processingTime: Date.now() - requestStart,
-				headers
+				headers: Object.keys(res.getHeaders())
 			}
 		})
 	})
 	next()
-}
-
-/* Log Error Information for the production enginer */
-export const errorLogger = (error, req, _res, next) => {
-	const { originalUrl, method, hostname, ip, protocol } = req
-	winston.error({
-		loggedAt: 'errorLogger',
-		url: originalUrl,
-		method,
-		ip,
-		hostname,
-		protocol,
-		status: error.status || error.statusCode || 500,
-		text: error.message,
-		stack: error.stack
-	})
-	next(error)
 }

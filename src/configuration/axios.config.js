@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { winston } from '../util'
+import { winston as logger } from '../util'
 
-axios.defaults.baseURL = process.env.ICM_URL || 'http://testUrl/api'
+axios.defaults.baseURL = process.env.ICM_URL
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 
-winston.debug({ msg: 'config', config: axios.defaults })
+logger.debug({ msg: 'config', config: axios.defaults })
 
 const logAxiosResponseError = (error, info) => {
 	const {
@@ -13,13 +13,12 @@ const logAxiosResponseError = (error, info) => {
 		config: { url, method, data }
 	} = error
 
-	winston.debug({
-		loggedAt: 'axios response interceptor',
-		status: 'error',
+	logger.debug({
+		src: 'axios response error',
+		url,
 		method,
 		msg: message,
 		info,
-		url,
 		data,
 		stack
 	})
@@ -27,21 +26,18 @@ const logAxiosResponseError = (error, info) => {
 
 axios.interceptors.request.use(
 	config => {
-		const { method, data, headers, url } = config
-		winston.info({
-			loggedAt: 'axios request interceptor',
-			status: 'success',
-			method,
+		const { method, data, url } = config
+		logger.debug({
+			src: 'axios request interceptor',
 			url,
-			data,
-			headers
+			method,
+			data
 		})
 		return config
 	},
 	error => {
-		winston.debug({
-			loggedAt: 'axios request interceptor',
-			status: 'error',
+		logger.debug({
+			src: 'axios request error',
 			error
 		})
 		return Promise.reject(error)
@@ -55,13 +51,11 @@ axios.interceptors.response.use(
 			data,
 			status
 		} = response
-		winston.debug({
-			loggedAt: 'axios response interceptor',
-			status: 'success',
-			statusCode: status,
+		logger.debug({
+			src: 'axios response interceptor',
 			url,
-			data,
-			headers
+			statusCode: status,
+			data
 		})
 		return response
 	},
@@ -76,20 +70,19 @@ axios.interceptors.response.use(
 				data
 			} = error.response
 
-			winston.debug({
-				loggedAt: 'axios response interceptor',
-				status: 'error',
+			logger.debug({
+				src: 'axios response error',
+				url,
+				method,
 				statusCode: status,
 				statusText,
-				method,
 				msg: error.message,
-				url,
 				data
 			})
 
 			// As error.response is returned & it does not have a message key,
 			// So, add one to accomodate error.response
-			error.response.message = error.message
+			error.response.message = data.error.message
 			return Promise.reject(error.response)
 		} else if (error.request) {
 			// The request was made but no response was received

@@ -69,7 +69,6 @@ export const createWinstonLogger = (
 		env = process.env.NODE_ENV || 'dev',
 		logsFolder = process.env.LOGS_FOLDER || 'logs',
 		ddogApiKey = process.env.DD_API_KEY,
-		consoleLogging = true,
 		dataDogLogging = false
 	} = {}
 ) => {
@@ -87,7 +86,7 @@ export const createWinstonLogger = (
 		transports: [new DailyRotateFile(fileTransportOptions(service, logsFolder))]
 	})
 
-	if (consoleLogging) {
+	if (process.env.NODE_ENV !== 'production') {
 		logger.add(new transports.Console(consoleTransportOptions))
 	}
 
@@ -105,7 +104,6 @@ export const createWinstonLogger = (
 
 	logger.debug({
 		nodeEnv: logger.defaultMeta.env,
-		consoleLogging,
 		dataDogLogging,
 		logsFolder
 	})

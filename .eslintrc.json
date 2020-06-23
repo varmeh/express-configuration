@@ -38,7 +38,7 @@
 	"reportUnusedDisableDirectives": true,
 	"rules": {
 		/* Eslint Rules on top of rules configured in eslint:recommned */
-		"no-console": 0,
+		"no-console": 1,
 		"linebreak-style": [2, "unix"],
 		"quotes": [2, "single"],
 		"semi": 0,
@@ -55,7 +55,7 @@
 		"comma-dangle": [2, "never"],
 		"comma-spacing": [2, { "before": false, "after": true }],
 		"block-scoped-var": 2,
-		"complexity": [2, { "max": 6 }],
+		"complexity": [2, { "max": 9 }],
 		"consistent-return": 2,
 		"default-case": 2,
 		"default-param-last": 2,
@@ -96,13 +96,13 @@
 		"func-names": [2, "as-needed"],
 		"id-match": [
 			2,
-			"^[_]*[a-zA-Z0-9]*$",
+			"^([_]*[a-zA-Z0-9]|[_A-Z])*$",
 			{ "properties": true, "ignoreDestructuring": false }
 		],
 		"max-len": [2, 100],
 		"max-lines-per-function": [
 			2,
-			{ "max": 50, "skipBlankLines": true, "skipComments": true, "IIFEs": true }
+			{ "max": 60, "skipBlankLines": true, "skipComments": true, "IIFEs": true }
 		],
 		"max-nested-callbacks": [2, 3],
 		"max-params": [2, 4],

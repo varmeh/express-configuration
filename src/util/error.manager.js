@@ -1,20 +1,23 @@
 import { validationResult } from 'express-validator'
+import { winston } from './winston.logger'
 
 /* Send Error Response to client */
 export const sendErrorResponse = (error, _req, res, _next) => {
-	const { statusCode, message, errors } = error
-	res.status(statusCode).json({ status: 'error', message, errors })
+	const { status, message, errors } = error
+	res.status(status).json({ message, errors })
 }
 
 /* Standardized Error */
-export class ValidationError extends Error {
-	constructor(statusCode, message, errors = []) {
+class ValidationError extends Error {
+	constructor(status, message, errors = []) {
 		super(message || 'Internal Server Error')
 
 		// Ensure the name of this error is the same as the class name
 		this.name = this.constructor.name
-		this.statusCode = statusCode || 500
+		this.status = status || 500
 		this.errors = errors
+
+		winston.debug({ src: 'error.manager', msg: 'validation errors', errors })
 	}
 }
 
