@@ -1,6 +1,6 @@
 describe('Services', () => {
-	describe('POST /refresh', () => {
-		test('200 - Nothing', () => {
+	describe('Sanity check', () => {
+		test('checks if true equals true', () => {
 			expect(true).toBeTruthy()
 		})
 	})
